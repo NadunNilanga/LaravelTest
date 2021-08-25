@@ -40,6 +40,7 @@ class CompanyController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'website' => 'required',
         ]);
 
 
@@ -99,9 +100,7 @@ class CompanyController extends Controller
         $company->email = request()->email;
         $company->website = request()->website;
         if ($company->save()) {
-            return view('company.index', [
-                'companies' => company::paginate(10)
-            ]);
+            return redirect('/company');
         }
     }
 
@@ -116,9 +115,7 @@ class CompanyController extends Controller
     {
         $company = Company::find($id);
         if ($company->delete()) {
-            return view('company.index', [
-                'companies' => company::paginate(10)
-            ]);
+            return redirect('/company');
         }
     }
 }

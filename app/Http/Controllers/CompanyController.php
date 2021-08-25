@@ -57,9 +57,7 @@ class CompanyController extends Controller
         $company->logo = $path;
         $company->website = $request->website;
         if ($company->save()) {
-            return view('company.index', [
-                'companies' => company::paginate(10)
-            ]);
+            return view('company.edit', ['company' => $company]);
         }
     }
 
